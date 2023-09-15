@@ -7,7 +7,11 @@ from catalog.models import Product
 
 
 def index(request):
-    return render(request, 'catalog/index.html')
+    products_list = Product.objects.all()
+    context = {
+        'object_list': products_list
+    }
+    return render(request, 'catalog/index.html', context)
 
 
 def contacts(request):
@@ -21,9 +25,8 @@ def contacts(request):
     return render(request, 'catalog/contacts.html')
 
 
-def products(request):
-    products_list = Product.objects.all()
-    context = {
-        'object_list': products_list
-    }
-    return render(request, 'catalog/products.html', context)
+def product(request, id):
+    prod = Product.objects.get(pk=id)
+    context = {'product': prod}
+
+    return render(request, 'catalog/product.html', context)
