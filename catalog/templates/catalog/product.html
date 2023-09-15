@@ -1,7 +1,8 @@
 {% extends 'catalog/base.html' %}
 {% block content %}
+    {% load work_tag %}
     {% load static %}
-    <img src="/media/{{ product.image }}" class="img-fluid" alt="Изображение {{ product.name }}">
+    <img src="{% media_tag product.image %}" class="img-fluid" alt="Изображение {{ product.name }}">
     <h2>{{ product.name }}</h2>
     <p>{{ product.category_name }}</p>
     <p>{{ product.price }}</p>
