@@ -25,6 +25,7 @@
                             <textarea name="message" class="form-control mb-2" placeholder="Ваше сообщение"></textarea>
                             <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><input
                                     class="btn btn-primary w-100" type="submit" value="Отправлять"></font></font>
+                            {% csrf_token %}
                         </form>
                     </div>
                 </div>
