@@ -1,17 +1,12 @@
 from django.shortcuts import render
-
 from catalog.models import Product
+from django.views.generic import ListView, DetailView, CreateView
 
 
 # Create your views here.
-
-
-def index(request):
-    products_list = Product.objects.all()
-    context = {
-        'object_list': products_list
-    }
-    return render(request, 'catalog/index.html', context)
+class IndexListView(ListView):
+    model = Product
+    template_name = 'catalog/index.html'
 
 
 def contacts(request):
@@ -25,8 +20,6 @@ def contacts(request):
     return render(request, 'catalog/contacts.html')
 
 
-def product(request, id):
-    prod = Product.objects.get(pk=id)
-    context = {'product': prod}
-
-    return render(request, 'catalog/product.html', context)
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'catalog/product.html'

@@ -1,0 +1,12 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+    {% load work_tag %}
+    {% load static %}
+    <img src="{% media_tag blog.preview %}" class="img-fluid" alt="Изображение {{ blog.title }}">
+    <h2>{{ blog.title }} ({{ blog.slug }})</h2>
+    <p>{{ blog.body }}</p>
+    <p>{{ blog.publ_date|date }}</p>
+    <p>Просмотры {{ blog.view_count }}</p>
+
+
+{% endblock %}

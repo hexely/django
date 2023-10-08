@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'catalog',
+    'blog',
     'django_dump_load_utf8',
 
 ]
