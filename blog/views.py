@@ -24,7 +24,17 @@ class BlogCreateView(CreateView):
 class BlogUpdateView(UpdateView):
     model = Blog
     fields = ('title', 'body',)
-    success_url = reverse_lazy('blog:list')
+
+    def form_valid(self, form):
+        if form.is_valid():
+            new_mat = form.save()
+            new_mat.slug = slugify(new_mat.title)
+            new_mat.save()
+
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('blog:view', kwargs={'pk': self.object.pk})
 
 
 class BlogListView(ListView):
