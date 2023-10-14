@@ -8,39 +8,53 @@
 
 
     <main>
-
+        <div class="col-12 md-5">
+            <a class="btn btn-outline-primary" href="{% url 'catalog:create_product' %}">Добавить продукт</a>
+            <a class="btn btn-outline-primary" href="{% url 'catalog:create_version' %}">Добавить Версию</a>
+            <a class="btn btn-outline-primary" href="{% url 'catalog:create_version' %}">Редактировать Версию</a>
+        </div>
         <div class="album py-5 bg-light">
             <div class="container">
 
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                     {% for object in object_list %}
-                        <div class="col">
-                            <div class="card shadow-sm">
+                        {% for version in object.version_set.all %}
+                            {% if version.is_active %}
+                                <div class="col">
+                                    <div class="card shadow-sm">
 
-                                <img src="{{ object.image|media }}" class="img-fluid"
-                                     alt="Здесь должна быть картинка но я ее удалил">
-                                <div class="card-body">
-                                    <p class="card-text">{{ object.name|title }} {{ object.description|slice:"0:100" }}</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-
-                                        <small class="text-success-emphasis">Цена {{ object.price }}</small>
-                                        <small class="text-muted">Дата {{ object.date }}</small>
+                                        <img src="{{ object.image|media }}" class="img-fluid"
+                                             alt="Здесь должна быть картинка но я ее удалил">
+                                        <div class="card-body">
+                                            <p class="card-text">{{ object.name|title }} {{ object.description|slice:"0:100" }}</p>
 
 
+                                            <p>ВЕрсия {{ version.name_version }}</p>
+
+                                            <div class="d-flex justify-content-between align-items-center">
+
+                                                <small class="text-success-emphasis">Цена {{ object.price }}</small>
+                                                <small class="text-muted">Дата {{ object.date }}</small>
+
+
+                                            </div>
+                                            <a type="button" class="btn btn-sm btn-outline-secondary"
+                                               href="{% url 'catalog:product' object.pk %}">Смотреть</a>
+                                            <a type="button" class="btn btn-sm btn-outline-secondary"
+                                               href="{% url 'catalog:product' object.pk %}">Редактировать</a>
+
+                                        </div>
                                     </div>
-                                    <a type="button" class="btn btn-sm btn-outline-secondary"
-                                       href="{% url 'catalog:product' object.pk %}">Смотреть</a>
-
                                 </div>
-                            </div>
-                        </div>
+                            {% endif %}
+                        {% endfor %}
                     {% endfor %}
                 </div>
             </div>
         </div>
 
 
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}" crossorigin="anonymous"></script>
+        <script src="{% static 'js/bootstrap.bundle.min.js' %}" crossorigin="anonymous"></script>
 
 
     </body>
