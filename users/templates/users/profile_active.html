@@ -1,0 +1,100 @@
+{% extends 'catalog/base2.html' %}
+{% block content %}
+{% load static %}
+{% load work_tag %}
+<!-- Отступ -->
+<br/><br/>
+<div class=class="row":>
+    <div class="col-12">
+        <div class="col-6">
+            <p></p>
+            <div class="card">
+                <div class="card-header">
+
+                    {% if user.is_active %}
+                    <h3 class="card-title">Учетная запись активна</h3>
+                    {% else %}
+                    <h3 class="card-title">Верификация почты</h3>
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <p> На почтовый ящик {{ user.email }} был отправлен код активации учетной записи.</p>
+                            <p> Если его не ввести в течение 30 минут, придется регистрироваться заново.</p>
+
+                            <button type="submit">
+                                Принять
+                            </button>
+
+                            {% csrf_token %}
+                            {% endif%}
+                            <p id="demo"></p>
+                            {% if user.is_active %}
+                            {% else %}
+                            <script>
+                            // Set the date we're counting down to
+                            var countDownDate = new Date("{{ time }}").getTime();
+
+                            // Update the countdown every 1 second
+                            var x = setInterval(function() {
+
+                              // Get today's date and time
+                              var now = new Date().getTime();
+
+                              // Find the distance between now and the countdown date
+                              var distance = countDownDate - now;
+
+                              // Time calculations for days, hours, minutes and seconds
+                              var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                              var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                              var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                              var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                              // Display the result in the element with id="demo"
+                              document.getElementById("demo").innerHTML = minutes + " м " + seconds + " с ";
+
+                              // If the count down is finished, write some text
+                              if (distance < 0) {
+                                clearInterval(x);
+                                document.getElementById("demo").innerHTML = "EXPIRED";
+                              }
+                            }, 1000);
+
+
+
+
+
+
+
+
+
+
+                            </script>
+                            {% endif %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p></p>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/holder.min.js' %}"></script>
+
+<!-- Display the countdown timer in an element -->
+
+
+{% endblock %}
+
+

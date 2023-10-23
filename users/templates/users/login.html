@@ -1,14 +1,23 @@
 {% extends 'catalog/base2.html' %}
 {% block content %}
-    {% load work_tag %}
-    {% load static %}
-    <img src="{% media_tag product.image %}" class="img-fluid" alt="Изображение {{ product.name }}">
-    <h2>{{ product.name }}</h2>
-    <p>{{ product.category_name }}</p>
-    <p>{{ product.price }}</p>
-    <p>{{ product.date }}</p>
-    <p>{{ product.description }}</p>
-    <p> Добавлено пользователем:  {{ product.owner_product }}</p>
+{% load static %}
+
+<div class="col-6">
+    <p></p>
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Вход</h3>
+        </div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-success">Войти</button>
+            </form>
+        </div>
+    </div>
+</div>
+
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
@@ -19,6 +28,6 @@
 <script src="{% static 'js/popper.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/holder.min.js' %}"></script>
-</body>
-</html>
+
+
 {% endblock %}
