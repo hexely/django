@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from users.models import User
 
 NULLABLE = {'blank': True, 'null': True}
 
@@ -26,9 +27,9 @@ class Product(models.Model):
     price = models.IntegerField(verbose_name='цена')
     date = models.DateTimeField(default=datetime.now, verbose_name='дата создания')
     date_change = models.DateTimeField(null=True, verbose_name='дата последнего изменения')
+    owner_product = models.ForeignKey(User, on_delete=models.CASCADE, **NULLABLE)
 
     def __str__(self):
-        # Строковое отображение объекта
         return f'{self.name} {self.price}'
 
     class Meta:

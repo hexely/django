@@ -1,4 +1,4 @@
-import requests
+
 from django.shortcuts import render
 from django.urls import reverse_lazy
 
@@ -37,7 +37,11 @@ class ProductCreateView(CreateView):
 
     def form_valid(self, form):
         if form.is_valid():
-            form.save()
+            # прикручиваем владельца
+            product = form.save()
+            product.owner_product = self.request.user
+            product.save()
+
             test = Product.objects.all().last()
             # автоматом прикручиваем версию по умолчанию
             cr_custom_version = Version(product=test, num_version=1, name_version='Start V1.0', is_active=True)
