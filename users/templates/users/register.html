@@ -14,7 +14,7 @@
                 {{ form.as_p }}
 
                 <button type="submit" class="btn btn-success">Регистрация</button>
-
+                {% csrf_token %}
             </form>
         </div>
     </div>
@@ -30,6 +30,5 @@
 <script src="{% static 'js/popper.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/holder.min.js' %}"></script>
-
 
 {% endblock %}
