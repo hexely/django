@@ -1,4 +1,4 @@
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 
@@ -49,10 +49,19 @@ class ProductCreateView(CreateView):
         return super().form_valid(form)
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin,UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:index2')
+
+    # def form_valid(self, form):
+    #     if form.is_valid():
+    #         # прикручиваем владельца
+    #         product = form.save()
+    #         product.owner_product = self.request.user
+    #         product.save()
+    #
+    #     return super().form_valid(form)
 
 
 class VersionCreateView(CreateView):
