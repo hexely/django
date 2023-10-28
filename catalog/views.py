@@ -1,15 +1,17 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 
-from catalog.forms import ProductForm, VersionForm
+
+from catalog.forms import ProductForm, VersionForm, StaffProductForm
 from catalog.models import Product, Version
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 
-# Create your views here.
-class IndexListView(ListView):
+class IndexListView(LoginRequiredMixin, ListView):
     model = Product
+    # permission_required = 'catalog.view_product'
     template_name = 'catalog/index2.html'
 
 
@@ -20,19 +22,23 @@ def contacts(request):
         email = request.POST.get('email')
         message = request.POST.get('message')
         all_ = request.POST
+        # with open("contacts_message.txt", "w") as file:
+        #     a = f'{name}, ({email}, {number_phone}): {message}'
+        #     file.write(a)
         print(f'{name}, ({email}, {number_phone}): {message}')
     return render(request, 'catalog/contacts2.html')
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
     form_class = ProductForm
     template_name = 'catalog/product.html'
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
+    permission_required = 'catalog.add_product'
     success_url = reverse_lazy('catalog:index2')
 
     def form_valid(self, form):
@@ -49,10 +55,26 @@ class ProductCreateView(CreateView):
         return super().form_valid(form)
 
 
-class ProductUpdateView(LoginRequiredMixin,UpdateView):
+class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Product
-    form_class = ProductForm
+    permission_required = 'catalog.change_product'
     success_url = reverse_lazy('catalog:index2')
+
+    def get_form_class(self):
+        pk = self.kwargs.get('pk')
+        product = Product.objects.get(pk=pk)
+
+        # если это владелец продукта - выводится полная форма
+        if product.owner_product == self.request.user:
+            return ProductForm
+
+        # если это менеджер - выводится упрощенная форма редактирования
+        if self.request.user.is_staff:
+            return StaffProductForm
+
+
+    # def dispatch(self, *args, **kwargs):
+    #     return super().dispatch(*args, **kwargs)
 
     # def form_valid(self, form):
     #     if form.is_valid():
@@ -64,9 +86,18 @@ class ProductUpdateView(LoginRequiredMixin,UpdateView):
     #     return super().form_valid(form)
 
 
-class VersionCreateView(CreateView):
+class ProductDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Product
+    success_url = reverse_lazy('catalog:index2')
+
+    def test_func(self):
+        return self.request.user.is_superuser
+
+
+class VersionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Version
     form_class = VersionForm
+    permission_required = 'catalog.add_version'
     success_url = reverse_lazy('catalog:index2')
 
     def form_valid(self, form):
@@ -89,9 +120,10 @@ class VersionCreateView(CreateView):
         return super().form_valid(form)
 
 
-class VersionUpdateView(CreateView):
+class VersionUpdateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Version
     form_class = VersionForm
+    permission_required = 'catalog.change_version'
     success_url = reverse_lazy('catalog:index2')
 
     def form_valid(self, form):
@@ -112,4 +144,5 @@ class VersionUpdateView(CreateView):
 
             return super().form_valid(form)
         return super().form_valid(form)
+
 
