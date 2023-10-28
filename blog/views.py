@@ -4,7 +4,6 @@ from django.views.generic import CreateView, ListView, UpdateView, DetailView, D
 from blog.forms import BlogForm
 from blog.models import Blog
 from pytils.translit import slugify
-
 # Create your views here.
 
 

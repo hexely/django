@@ -11,6 +11,7 @@
                             {% csrf_token %}
                             <p>Delete blog</p>
                             <button type="submit" class="btn-danger">Confirm</button>
+
                             <a href="{% url 'blog:list' %}" class="btn btn-warning">Cancel</a>
 
                         </form>

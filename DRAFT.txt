@@ -1,0 +1,5 @@
+Команда для корректной записи БД в файл json
+
+python manage.py dumpdata --indent=2 --exclude blog --exclude contenttypes -o data_blog.json
+
+Сделать релоад в win1251

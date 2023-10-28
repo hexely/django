@@ -28,7 +28,10 @@
             <div class="row">
                 <div class="col-sm-8 col-md-7 py-4">
                     <h4 class="text-white">Описание</h4>
-                    <p class="text-muted">Это домашка за номером 22 дробь 2</p>
+                    <p class="text-muted">Это домашка за номером 23 дробь 1</p>
+                    {% if user.is_authenticated %}
+                    <p class="text-muted"> Пользователь {{ user }}</p>
+                    {% endif %}
                     <ul class="list-unstyled">
                         <li><a href="{% url 'catalog:index2' %}" class="text-white">Главная</a></li>
                         <li><a href="{% url 'catalog:contacts2' %}" class="text-white">Контакты</a></li>
@@ -47,11 +50,25 @@
                 </div>
                 {% if user.is_authenticated %}
                 <div class="col-sm-4 offset-md-1 py-4">
+
+                    {% if perms.catalog %}
                     <h4 class="text-white">Меню</h4>
+                    {% endif %}
+
                     <ul class="list-unstyled">
+
+
                         <li><a href="{% url 'catalog:create_product' %}" class="text-white">Добавить продукт</a></li>
+
+
+
                         <li><a href="{% url 'catalog:create_version' %}" class="text-white">Добавит версию</a></li>
+
+
+
                         <li><a href="{% url 'catalog:create_version' %}" class="text-white">Редактировать версию</a>
+
+
                         </li>
                     </ul>
                 </div>

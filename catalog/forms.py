@@ -11,12 +11,16 @@ class StyleFromMixin:
             field.widget.attrs['class'] = 'form-control'
 
 
-class ProductForm(StyleFromMixin, forms.ModelForm):
-
+class StaffProductForm(StyleFromMixin, forms.ModelForm):
     class Meta:
         model = Product
-        # fields = '__all__'
-        fields = ('name', 'description', 'image', 'category_name', 'price')
+        fields = ('is_published', 'description', 'category_name')
+
+
+class ProductForm(StyleFromMixin, forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ('name', 'description', 'image', 'category_name', 'price', 'is_published')
         # exclude = ('is_active')
 
     def clean_name(self):
