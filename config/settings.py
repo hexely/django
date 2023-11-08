@@ -150,10 +150,9 @@ LOGIN_URL = '/users/'
 
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
-# EMAIL_HOST_USER = 'ihistos91@yandex.ru'
-# EMAIL_HOST_PASSWORD = 'nbpxncetoqspbncd'
-EMAIL_HOST_USER = os.getenv('HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('HOST_PASSWORD')
+
+EMAIL_HOST_USER = os.environ.get('HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('HOST_PASSWORD')
 EMAIL_USE_SSL = True
 
 
