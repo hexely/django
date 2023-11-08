@@ -16,6 +16,8 @@ ipython = "^8.15.0"
 django-dump-load-utf8 = "^0.0.4"
 image = "^1.5.33"
 pytils = "^0.4.1"
+redis = "^5.0.1"
+python-dotenv = "^1.0.0"
 
 
 [build-system]

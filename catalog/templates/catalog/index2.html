@@ -19,6 +19,8 @@
                              alt="Здесь должна быть картинка но я ее удалил">
                         <div class="card-body">
                             <p class="card-text">{{ object.name|title }} {{ object.description|slice:"0:100" }} </p>
+                            <p class="card-text">{{ object.category_name }} </p>
+
                             <p>Version
                                 {{ version.name_version }}</p>
                             <small class="text-success-emphasis">Цена {{ object.price }} </small>

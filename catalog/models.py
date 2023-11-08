@@ -11,7 +11,7 @@ class Category(models.Model):
 
     def __str__(self):
         # Строковое отображение объекта
-        return f'{self.category_name} {self.description}'
+        return f'{self.category_name}'
 
     class Meta:
         verbose_name = 'категория' # Настройка для наименования одного объекта

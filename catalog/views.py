@@ -1,9 +1,6 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
-
-
 from catalog.forms import ProductForm, VersionForm, StaffProductForm
 from catalog.models import Product, Version
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -22,9 +19,6 @@ def contacts(request):
         email = request.POST.get('email')
         message = request.POST.get('message')
         all_ = request.POST
-        # with open("contacts_message.txt", "w") as file:
-        #     a = f'{name}, ({email}, {number_phone}): {message}'
-        #     file.write(a)
         print(f'{name}, ({email}, {number_phone}): {message}')
     return render(request, 'catalog/contacts2.html')
 
@@ -71,19 +65,6 @@ class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
         # если это менеджер - выводится упрощенная форма редактирования
         if self.request.user.is_staff:
             return StaffProductForm
-
-
-    # def dispatch(self, *args, **kwargs):
-    #     return super().dispatch(*args, **kwargs)
-
-    # def form_valid(self, form):
-    #     if form.is_valid():
-    #         # прикручиваем владельца
-    #         product = form.save()
-    #         product.owner_product = self.request.user
-    #         product.save()
-    #
-    #     return super().form_valid(form)
 
 
 class ProductDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
