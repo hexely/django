@@ -180,12 +180,12 @@ LOGGING = {
     },
 }
 
-CACHE_ENABLED = True# os.getenv('CACHE_ENABLED')
+CACHE_ENABLED = os.getenv('CACHE_ENABLED')
 
 if CACHE_ENABLED:
     CACHES = {
         "default": {
             "BACKEND": "django.core.cache.backends.redis.RedisCache",
-            "LOCATION": 'redis://127.0.0.1:6379',
+            "LOCATION": os.getenv('CACHE_LOCATION'),
         }
     }
