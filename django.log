@@ -17616,3 +17616,6 @@ INFO 2023-11-09 00:50:20,976 autoreload D:\django\config\settings.py changed, re
 INFO 2023-11-09 00:50:21,630 autoreload Watching for file changes with StatReloader - django.utils.autoreload:668
 INFO 2023-11-09 00:51:30,753 autoreload Watching for file changes with StatReloader - django.utils.autoreload:668
 INFO 2023-11-09 00:52:25,057 autoreload Watching for file changes with StatReloader - django.utils.autoreload:668
+INFO 2023-11-12 18:23:38,937 autoreload Watching for file changes with StatReloader - django.utils.autoreload:668
+WARNING 2023-11-12 18:23:42,693 log Not Found: /docs/4.0/assets/img/favicons/favicon.ico - django.request:241
+WARNING 2023-11-12 18:24:11,152 log Not Found: /media// - django.request:241
