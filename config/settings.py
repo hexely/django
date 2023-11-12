@@ -26,7 +26,7 @@ load_dotenv(BASE_DIR / '.env')
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-6(13ho&n0q0bvuer&tgj52+5f1tsf4k(5q(8hbl)oa+ev733nb'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -89,9 +89,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'project20',
-        'USER': 'postgres',
-        'PASSWORD': '12345'
+        'NAME': os.getenv('NAME'),
+        'USER': os.getenv('USER'),
+        'PASSWORD': os.getenv('PASSWORD')
     }
 }
 
@@ -150,10 +150,9 @@ LOGIN_URL = '/users/'
 
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
-# EMAIL_HOST_USER = 'ihistos91@yandex.ru'
-# EMAIL_HOST_PASSWORD = 'nbpxncetoqspbncd'
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_SSL = True
 
 
