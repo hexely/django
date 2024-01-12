@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Client</title>
+</head>
+<body>
+<div class="card-body">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% if object %}
+            <button type="submit" class="btn btn-success">
+                Сохранить изменения
+            </button>
+        {% else %}
+            <button type="submit" class="btn btn-success">Сохранить</button>
+        {% endif %}
+    </form>
+</div>
+</body>
+</html>

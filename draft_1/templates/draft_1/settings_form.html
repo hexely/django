@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Settings</title>
+</head>
+<body>
+<div class="card-body">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% csrf_token %}
+        {{ form_2.as_p }}
+        <button type="submit" class="btn btn-success">Сохранить</button>
+
+    </form>
+
+</div>
+</body>
+</html>

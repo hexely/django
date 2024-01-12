@@ -47,7 +47,9 @@ INSTALLED_APPS = [
     'catalog',
     'blog',
     'users',
+    'draft_1',
     'django_dump_load_utf8',
+    'django_apscheduler',
 
 
 ]
