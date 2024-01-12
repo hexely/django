@@ -1,0 +1,83 @@
+{% extends 'catalog/base2.html' %}
+{% block content %}
+{% load work_tag %}
+{% load static %}
+
+
+<main role="main">
+
+    <div class="album py-5 bg-light">
+        <div class="container">
+
+            <div class="row">
+                {% for object in object_list %}
+                {% for version in object.version_set.all %}
+                {% if version.is_active and object.is_published %}
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                        <img src="{{ object.image|media }}" class="img-fluid"
+                             alt="Здесь должна быть картинка но я ее удалил">
+                        <div class="card-body">
+                            <p class="card-text">{{ object.name|title }} {{ object.description|slice:"0:100" }} </p>
+                            <p class="card-text">{{ object.category_name }} </p>
+
+                            <p>Version
+                                {{ version.name_version }}</p>
+                            <small class="text-success-emphasis">Цена {{ object.price }} </small>
+                            <p></p>
+                            <small class="text-muted">Дата {{ object.date }}</small>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+
+                                    <a type="button" class="btn btn-sm btn-outline-secondary"
+                                       href="{% url 'catalog:product' object.pk %}">Смотреть</a>
+
+                                    {% if perms.catalog.change_product %}
+                                    <a type="button" class="btn btn-sm btn-outline-secondary"
+                                       href="{% url 'catalog:update_product' object.pk %}">Редактировать</a>
+                                    {% endif %}
+
+                                    {% if user.is_superuser %}
+                                    <a type="button" class="btn btn-sm btn-outline-secondary"
+                                       href="{% url 'catalog:delete_product' object.pk %}">Удалить</a>
+                                    {% endif %}
+
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<footer class="text-muted">
+    <div class="container">
+        <p class="float-right">
+            <a href="#">Back to top</a>
+        </p>
+        <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
+        <p>New to Bootstrap? <a href="../../">Visit the homepage</a> or read our <a href="../../getting-started/">getting
+            started guide</a>.</p>
+    </div>
+</footer>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/holder.min.js' %}"></script>
+</body>
+</html>
+{% endblock %}

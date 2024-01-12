@@ -1,0 +1,24 @@
+{% extends 'catalog/base2.html' %}
+{% block content %}
+    {% load work_tag %}
+    {% load static %}
+    <img src="{% media_tag product.image %}" class="img-fluid" alt="Изображение {{ product.name }}">
+    <h2>{{ product.name }}</h2>
+    <p>{{ product.category_name }}</p>
+    <p>{{ product.price }}</p>
+    <p>{{ product.date }}</p>
+    <p>{{ product.description }}</p>
+    <p> Добавлено пользователем:  {{ product.owner_product }}</p>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/holder.min.js' %}"></script>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'catalog/base2.html' %}
+
+{% block content %}
+
+<div class=class="row":>
+    <div class="col-12">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <p>Удаление продукта</p>
+                        {% if user.is_authenticated and user.is_superuser or object.owner_product == user %}
+                        <button type="submit" class="btn-danger">Удалить {{ object.name }}</button>
+                        <a href="{% url 'catalog:index2' %}" class="btn btn-warning">Отмена</a>
+                        {% else %}
+                        <a href="{% url 'catalog:index2' %}" class="btn btn-warning">Отмена</a>
+                        {% endif %}
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
